@@ -127,7 +127,7 @@ namespace HTTP5125_Cumulative_Project_Part_2.Controllers
             while (resultSet.Read())
             {
                 //access column information by their database column name as an index and convert to int/string
-                int ClassId = Convert.ToInt32(resultSet["classid"]);
+                int ClassId = (int)resultSet["classid"];
                 string ClassCode = resultSet["classcode"].ToString();
                 int TeacherId = Convert.ToInt32(resultSet["teacherid"]);
                 string StartDate = resultSet["startdate"].ToString();

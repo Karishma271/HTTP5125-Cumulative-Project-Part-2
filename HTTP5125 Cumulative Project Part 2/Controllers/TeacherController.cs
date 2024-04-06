@@ -138,6 +138,38 @@ namespace HTTP5125_Cumulative_Project_Part_2.Controllers
         }
 
         /// <summary>
+        ///  Receives a POST request containing information about an existing teacher in the system with new values.
+        /// </summary>
+        /// <param name="id">ID of the Teacher to update (primary key)</param>
+        /// <param name="TeacherFname">The updated first name of the teacher</param>
+        /// <param name="TeacherLname">The updated last name of the teacher</param>
+        /// <param name="EmployeeNumber">The updated employeenumber of the teacher</param>
+        /// <param name="Salary">The updated salary of the teacher</param>
+        /// <returns>A dynamic webpage with provides the current information of the teacher</returns>
+        /// <example>POST: /Teacher/Updated/{id}</example>
+        //POST: /Teacher/Updated/{id}
+        [HttpPost]
+        public ActionResult AJAX_Updated(int id, string TeacherFname, string TeacherLname, string EmployeeNumber, decimal Salary)
+        {
+            //Debug.WriteLine("working");
+
+
+            Teacher TeacherInfo = new Teacher();
+            TeacherInfo.TeacherFname = TeacherFname;
+            TeacherInfo.TeacherLname = TeacherLname;
+            TeacherInfo.EmployeeNumber = EmployeeNumber;
+            TeacherInfo.Salary = Salary;
+
+
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.AJAX_UpdateTeacher(id, TeacherInfo);
+
+            return RedirectToAction("Show/" + id);
+        }
+
+
+        /// <summary>
         /// An AJAX NEW page which will send the HTTP request to api controller and create a new teacher by using JAVASCRIPT
         /// </summary>
         /// <returns></returns>

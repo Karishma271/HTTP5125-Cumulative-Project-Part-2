@@ -265,6 +265,50 @@ namespace HTTP5125_Cumulative_Project_Part_2.Controllers
 
         }
 
+        /// <summary>
+        /// Update a teacher's info into database
+        /// </summary>
+        /// <param name="id">ID of a teacher (primary key)</param>
+        /// <param name="SelectedTeacher">contains all the parameters such as teacherFname, teacherLname, EmployeeNumber, Salary</param>
+        /// <example>using CURL request with a JSON object to update:
+        /// notepad teacherdata.json
+        /// {
+        ///     "TeacherFname":"Karishma",
+        ///     "TeacherLname":"Patel",
+        ///     "EmployeeNumber":"321",
+        ///     "Salary":"80"
+        /// }
+        /// curl -H "Content-Type:application/json" -d @teacherdata.json "http://localhost:61041/api/TeacherData/Ajax_UpdateTeacher/17"
+        /// </example>
+        [HttpPost]
+        public void AJAX_UpdateTeacher(int id, [FromBody] Teacher TeacherInfo)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //open connection
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL COMMAND
+            cmd.CommandText = "AJAX_Update teachers set teacherfname=@teacherfname, teacherlname=@teacherlname, employeenumber=@employeenumber, salary=@salary where teacherid=@teacherId";
+            cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@teacherId", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            //Close connection
+            Conn.Close();
+
+
+        }
+
 
 
 
