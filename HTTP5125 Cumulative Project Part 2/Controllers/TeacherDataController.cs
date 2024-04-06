@@ -200,7 +200,7 @@ namespace HTTP5125_Cumulative_Project_Part_2.Controllers
             //Create an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
 
-            //open connection
+            //open connectio
             Conn.Open();
 
             //Establish a new command for database
